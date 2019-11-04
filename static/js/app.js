@@ -5,21 +5,23 @@ function buildMetadata(sample) {
     // Use d3 to select the panel with id of `#sample-metadata`
     var mdcontainer = d3.select('#sample-metadata')    
     // Use `.html("") to clear any existing metadata
+    //QUESTION .... doesnt work well when i use it on graphs wonder why
     mdcontainer.html('');
     // Use `Object.entries` to add each key and value pair to the panel
     // Hint: Inside the loop, you will need to use d3 to append new tags for each key-value in the metadata.
     var metaurl = `/metadata/${sample}`;
     d3.json(metaurl).then(response => {
-      // console.log (response);
+      //console.log (response.WFREQ);
       var selection = mdcontainer
       Object.entries(response).forEach(([key, value]) => {
         // console.log(`${key}:${value}`)
         //QUESTION..this method works so why do i need the enter append way we were taught later??
         var li = selection.append('p').text(`${key} : ${value}`)
       })
+      buildGauge(response.WFREQ);
     })
     // BONUS: Build the Gauge Chart
-    // buildGauge(data.WFREQ);
+     
 }
 
 function buildCharts(sample) {
