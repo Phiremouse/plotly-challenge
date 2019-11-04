@@ -2,30 +2,36 @@ function buildGauge(washfreq){
   var traceA = {
     type: "pie",
     showlegend: false,
-    hole: 0.2,
+    hole: 0.3,
     rotation: 90,
-    domain: {'x':[0,.48]},
     values: [100 / 5, 100 / 5, 100 / 5, 100 / 5, 100 / 5, 100],
     text: ["Very Low", "Low", "Average", "Good", "Excellent", ""],
     direction: "clockwise",
     textinfo: "text",
     textposition: "inside",
     marker: {
-      colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 165, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(144, 238, 144, 0.6)", "rgba(154, 205, 50, 0.6)", "white"]
+      colors: ["rgba(255, 0, 0, 0.6)", "rgba(255, 165, 0, 0.6)", "rgba(255, 255, 0, 0.6)", "rgba(144, 238, 144, 0.6)", "rgba(154, 205, 50, 0.6)", "rgba(154, 350, 125, 0.6)"]
     },
     labels: ["0-10", "10-50", "50-200", "200-500", "500-2000", ""],
     hoverinfo: "label"
   };
   
-  
+  var degrees = 69;
+  var radius = .5;
+  var radians = degrees * Math.PI/180;
+  var x = Math.cos(radians);
+  var y = Math.sin(radians);
   
   var layout = {
     shapes:[{
-      type: 'path',
-      path: 'M 0.235 0.5 L 0.24 0.65 L 0.245 0.5 Z',
-      fillcolor: 'rgba(44, 160, 101, 0.5)',
-      line: {
-          'width': 0.8
+        type: 'line',
+        x0: 1,
+        y0: .5,
+        x1: 1,
+        y1: y,
+        line: {
+          color: 'black',
+          width: 8
         }
       }],
     title: 'Number of Printers Sold in a Week',
@@ -34,9 +40,9 @@ function buildGauge(washfreq){
   };
   
   var data = [traceA];
+  
 
+  
 
-
-
-Plotly.newPlot("gauge",data,layout)
+Plotly.newPlot("gauge",data,layout,{staticPlot: true});
 }
